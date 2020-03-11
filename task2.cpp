@@ -7,7 +7,6 @@
 #include <string.h>
 
 namespace numbers {
-/*
     class complex {
         double re_member;
         double im_member;
@@ -95,7 +94,7 @@ namespace numbers {
     complex operator/ (complex z1, complex z2) {
         return (z1 /= z2);
     }
-*/
+
     class complex_stack {
     public:
         complex_stack() : capacity(2), size_(0), mas(NULL) {
