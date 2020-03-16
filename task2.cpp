@@ -7,6 +7,7 @@
 #include <string.h>
 
 namespace numbers {
+    /*
     class complex {
         double re_member;
         double im_member;
@@ -93,19 +94,20 @@ namespace numbers {
     }
     complex operator/ (complex z1, complex z2) {
         return (z1 /= z2);
-    }
+    }*/
 
     class complex_stack {
     public:
         complex_stack() : capacity(2), size_(0), mas(NULL) {
             mas = static_cast<complex*> (::operator new (capacity * sizeof(complex)));
+
         }
 
         ~complex_stack() {
             ::operator delete(mas);
         }
 
-        complex_stack (const complex_stack& a, const size_t & delta = 0) : capacity(a.capacity), 
+        complex_stack (const complex_stack& a, const size_t & delta = 0) : capacity(a.capacity),
         size_(a.size_ - delta) {
             mas = static_cast<complex*> (::operator new (capacity * sizeof(complex)));
             memcpy(mas, a.mas, (size_ - delta) * sizeof(complex));
@@ -117,10 +119,6 @@ namespace numbers {
 
         complex operator[] (size_t index) const {
             return mas[index];
-        }
-
-        complex_stack operator~() const {
-            return complex_stack(*this, 1);
         }
 
         complex operator+() const {
@@ -141,7 +139,7 @@ namespace numbers {
             }
             }
 
-            complex_stack operator<<(const complex& a) const {
+        complex_stack operator<<(const complex& a) const {
             complex_stack res = *this;
             if (res.size_ == res.capacity) {
                 res.capacity *= 2;
@@ -153,8 +151,13 @@ namespace numbers {
             new(res.mas + res.size_) complex(a);
             res.size_++;
             return res;
-            }
+        }
 
+        complex_stack operator~() const {
+            complex_stack res = *this;
+            res.size_--;
+            return res;
+        }
     private:
         size_t capacity;
         size_t size_;
